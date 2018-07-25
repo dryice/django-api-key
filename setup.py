@@ -28,9 +28,9 @@ http://docs.python.org/2/distutils/sourcedist.html
 
 """
 import os
-from setuptools import setup, find_packages
-import drf_api_key as app
 
+import drf_api_key as app
+from setuptools import find_packages, setup
 
 dev_requires = [
     'flake8',
@@ -44,6 +44,7 @@ def read(fname):
         return open(os.path.join(os.path.dirname(__file__), fname)).read()
     except IOError:
         return ''
+
 
 setup(
     name="drf-api-key",

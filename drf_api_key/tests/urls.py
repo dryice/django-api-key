@@ -1,7 +1,7 @@
 """URLs to run the tests."""
-from compat import include, url
 from django.contrib import admin
 
+from compat import include, url
 
 admin.autodiscover()
 
