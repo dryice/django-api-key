@@ -1,11 +1,16 @@
 """Admin classes for the drf_api_key app."""
-# from django.contrib import admin
+from django.contrib import admin
 
-# from . import models
+from drf_api_key.models import APIKey, KeyGroup
 
 
-# class YourModelAdmin(admin.ModelAdmin):
-#    list_display = ['some', 'fields', ]
-#    search_fields = ['some', 'fieds', ]
+@admin.register(KeyGroup)
+class KeyGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', 'path_re', ]
+    search_fields = ['name', ]
 
-# admin.site.register(models.YourModel, YourModelAdmin)
+
+@admin.register(APIKey)
+class APIKeyAdmin(admin.ModelAdmin):
+    list_display = ['name', 'key', 'path_re', 'group', 'created', 'updated']
+    search_fields = ['name', 'group__name']
