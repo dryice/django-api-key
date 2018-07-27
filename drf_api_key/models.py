@@ -34,7 +34,7 @@ class APIKey(models.Model):
 
         If a path_re is given, use it.
         Otherwise try to use the path_re from group. If no group is defined, allow all paths.
-        """        
+        """
         if not self.path_re:
             if self.group:
                 return re.compile(self.group.path_re)
