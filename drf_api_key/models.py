@@ -14,9 +14,11 @@ class KeyGroup(models.Model):
         return self.name
 
 
-class APIKey(models.Model):
+class AccessItem(models.Model):
+    class Meta:
+        abstract = True
+
     name = models.CharField(max_length=128, unique=True)
-    key = models.UUIDField(default=uuid.uuid4, editable=False)
     path_re = models.CharField(max_length=1024, default='',
                                help_text="If left blank, will use the one from group, if no group, will allow all. "
                                "If given, will overwrite group settings ")
@@ -30,7 +32,7 @@ class APIKey(models.Model):
 
     @property
     def url_re(self):
-        """Return the RE object for the key.
+        """Return the RE object for the item.
 
         If a path_re is given, use it.
         Otherwise try to use the path_re from group. If no group is defined, allow all paths.
@@ -44,5 +46,13 @@ class APIKey(models.Model):
             return re.compile(self.path_re)
 
     def is_path_valid(self, path):
-        """Check if the path could be accessed by this key."""
+        """Check if the path could be accessed by this item."""
         return self.url_re.search(path)
+
+
+class APIKey(AccessItem):
+    key = models.UUIDField(default=uuid.uuid4, editable=False)
+
+
+class IPAccess(AccessItem):
+    ip = models.GenericIPAddressField()
