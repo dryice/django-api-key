@@ -2,7 +2,7 @@
 from django.test import Client, TestCase
 
 from django_api_key.models import APIKey, IPAccess
-from ipware.defaults import IPWARE_PRIVATE_IP_PREFIX
+
 
 
 class APIKeyModelTests(TestCase):
@@ -33,18 +33,15 @@ class APIKeyModelTests(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_no_key_whitelisted_ip_can_access(self):
-        self.skipTest("waiting for new release with https://github.com/un33k/django-ipware/pull/42")
-        IPAccess.objects.create(name="test", path_re="/admin.*", ip="127.0.0.1")
+        IPAccess.objects.create(name="test", path_re="/admin.*", ip="1.2.3.4")
+        c = Client()
 
-        with self.settings(IPWARE_NON_PUBLIC_IP_PREFIX=IPWARE_PRIVATE_IP_PREFIX):
-            c = Client()
-            response = c.get('/admin/', follow=True)
-            self.assertEqual(response.status_code, 200)
+        response = c.get('/admin/', follow=True, REMOTE_ADDR="1.2.3.4")
+        self.assertEqual(response.status_code, 200)
 
     def test_non_routable_ip_can_not_access(self):
         IPAccess.objects.create(name="test", path_re="/admin.*", ip="127.0.0.1")
         c = Client()
 
-        # by default localhost is not routable
         response = c.get('/admin/', follow=True)
         self.assertEqual(response.status_code, 403)
