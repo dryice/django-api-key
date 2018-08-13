@@ -53,7 +53,7 @@ setup(
     long_description=read('README.rst'),
     license='The MIT License',
     platforms=['OS Independent'],
-    keywords='django, django, django-rest-framework, api, api-key',
+    keywords='django, api, api-key',
     author='Dryice Liu',
     author_email='dryiceliu@gmail.com',
     url="https://github.com/dryice/django-api-key",
