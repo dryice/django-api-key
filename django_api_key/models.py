@@ -19,7 +19,7 @@ class AccessItem(models.Model):
         abstract = True
 
     name = models.CharField(max_length=128, unique=True)
-    path_re = models.CharField(max_length=1024, default='',
+    path_re = models.CharField(max_length=1024, default='', blank=True,
                                help_text="If left blank, will use the one from group, if no group, will allow all. "
                                "If given, will overwrite group settings ")
     group = models.ForeignKey(KeyGroup, blank=True, null=True, on_delete=models.PROTECT)
