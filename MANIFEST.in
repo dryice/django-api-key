@@ -2,7 +2,7 @@ include AUTHORS
 include LICENSE
 include DESCRIPTION
 include CHANGELOG.txt
-include README.md
+include README.rst
 include tox.ini
 include runtests.py
 include requirements.txt
