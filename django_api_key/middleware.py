@@ -13,7 +13,7 @@ class APIKeyMiddleware(MiddlewareMixin):
         if client_ip and is_routable:
             try:
                 ip_access_object = IPAccess.objects.get(ip=client_ip)
-                if ip_access_object.is_valid(request.path):
+                if ip_access_object.is_path_valid(request.path):
                     request.ip_access = ip_access_object
                     return
             except IPAccess.DoesNotExist:
@@ -24,7 +24,7 @@ class APIKeyMiddleware(MiddlewareMixin):
         except (APIKey.DoesNotExist, ValidationError):
             raise PermissionDenied('API key missing or invalid.')
 
-        if not api_key_object.is_valid(request.path):
+        if not api_key_object.is_path_valid(request.path):
             raise PermissionDenied('API key missing or invalid.')
 
         request.api_key = api_key_object
