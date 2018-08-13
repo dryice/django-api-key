@@ -1,7 +1,7 @@
 """Tests for the models of the django_api_key app."""
 from django.test import Client, TestCase
 
-from django_api_key.models import APIKey, IPAccess
+from django_api_key.models import APIKey, IPAccess, KeyGroup
 
 
 class APIKeyModelTests(TestCase):
@@ -51,3 +51,27 @@ class APIKeyModelTests(TestCase):
 
         response = c.get('/admin/', follow=True)
         self.assertEqual(response.status_code, 403)
+
+    def test_empty_path_re_use_group_one(self):
+        group = KeyGroup.objects.create(name="test_group", path_re="/admin.*")
+        me = APIKey.objects.create(name="test_key", path_re="", group=group)
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_API_KEY=me.key)
+        self.assertEqual(response.status_code, 200)
+
+    def test_empty_path_re_no_group_allow_all(self):
+        me = APIKey.objects.create(name="test_key", path_re="")
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_API_KEY=me.key)
+        self.assertEqual(response.status_code, 200)
+
+    def test_key_path_re_override_group_one(self):
+        group = KeyGroup.objects.create(name="test_group", path_re="/admin.*")
+        me = APIKey.objects.create(name="test_key", path_re="/abc", group=group)
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_API_KEY=me.key)
+        self.assertEqual(response.status_code, 403)
+        print("{} overrides {} correctly".format(me, group))
