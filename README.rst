@@ -1,7 +1,7 @@
 DRF API Key
 ============
 
-Per URL api-key control for DRF
+Per URL api-key control for Django
 
 Installation
 ------------
@@ -10,45 +10,45 @@ To get the latest stable release from PyPi
 
 .. code-block:: bash
 
-    pip install drf-api-key
+    pip install django-api-key
 
 To get the latest commit from GitHub
 
 .. code-block:: bash
 
-    pip install -e git+git://github.com/dryice/drf-api-key.git#egg=drf_api_key
+    pip install -e git+git://github.com/dryice/django-api-key.git#egg=django_api_key
 
 TODO: Describe further installation steps (edit / remove the examples below):
 
-Add ``drf_api_key`` to your ``INSTALLED_APPS``
+Add ``django_api_key`` to your ``INSTALLED_APPS``
 
 .. code-block:: python
 
     INSTALLED_APPS = (
         ...,
-        'drf_api_key',
+        'django_api_key',
     )
 
-Add the ``drf_api_key`` URLs to your ``urls.py``
+Add the ``django_api_key`` URLs to your ``urls.py``
 
 .. code-block:: python
 
     urlpatterns = [
-        url(r'^api_key/', include('drf_api_key.urls')),
+        url(r'^api_key/', include('django_api_key.urls')),
     ]
 
 Before your tags/filters are available in your templates, load them by using
 
 .. code-block:: html
 
-	{% load drf_api_key_tags %}
+	{% load django_api_key_tags %}
 
 
 Don't forget to migrate your database
 
 .. code-block:: bash
 
-    ./manage.py migrate drf_api_key
+    ./manage.py migrate django_api_key
 
 
 Usage
@@ -67,7 +67,7 @@ If you want to contribute to this project, please perform the following steps
 
     # Fork this repository
     # Clone your fork
-    mkvirtualenv -p python2.7 drf-api-key
+    mkvirtualenv -p python2.7 django-api-key
     make develop
 
     git co -b feature_branch master

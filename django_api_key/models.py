@@ -1,4 +1,4 @@
-"""Models for the drf_api_key app."""
+"""Models for the django_api_key app."""
 import re
 import uuid
 

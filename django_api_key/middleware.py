@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from ipware import get_client_ip
 
-from drf_api_key.models import APIKey, IPAccess
+from django_api_key.models import APIKey, IPAccess
 
 
 class APIKeyMiddleware(object):

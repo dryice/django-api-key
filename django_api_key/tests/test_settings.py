@@ -15,7 +15,7 @@ DATABASES = {
     }
 }
 
-ROOT_URLCONF = 'drf_api_key.tests.urls'
+ROOT_URLCONF = 'django_api_key.tests.urls'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(APP_ROOT, '../app_static')
@@ -49,8 +49,8 @@ EXTERNAL_APPS = [
 ]
 
 INTERNAL_APPS = [
-    'drf_api_key',
-    'drf_api_key.tests.test_app',
+    'django_api_key',
+    'django_api_key.tests.test_app',
 ]
 
 INSTALLED_APPS = EXTERNAL_APPS + INTERNAL_APPS

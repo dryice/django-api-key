@@ -7,10 +7,10 @@ In order to kickstart your Sphinx documentation, please do the following:
 If you haven't done so already, create a virtual environment for this reusable
 app like so:
 
-    mkvirtualenv -p python2.7 drf-api-key
+    mkvirtualenv -p python2.7 django-api-key
     pip install Sphinx
     deactivate
-    workon drf-api-key
+    workon django-api-key
     sphinx-quickstart
 
 Answer the questions:
@@ -18,7 +18,7 @@ Answer the questions:
     > Root path for the documentation [.]:
     > Separate source and build directories (y/N) [n]: y
     > Name prefix for templates and static dir [_]:
-    > Project name: DRF API Key
+    > Project name: Django API Key
     > Author name(s): Dryice Liu
     > Project version: 0.1
     > Project release [0.1]:

@@ -39,6 +39,6 @@ class Migration(migrations.Migration):
             model_name='apikey',
             name='group',
             field=models.ForeignKey(blank=True, null=True,
-                                    on_delete=django.db.models.deletion.PROTECT, to='drf_api_key.KeyGroup'),
+                                    on_delete=django.db.models.deletion.PROTECT, to='django_api_key.KeyGroup'),
         ),
     ]

@@ -1,7 +1,7 @@
-"""Admin classes for the drf_api_key app."""
+"""Admin classes for the django_api_key app."""
 from django.contrib import admin
 
-from drf_api_key.models import APIKey, KeyGroup
+from django_api_key.models import APIKey, KeyGroup
 
 
 @admin.register(KeyGroup)

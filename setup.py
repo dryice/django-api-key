@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 """
-Python setup file for the drf_api_key app.
+Python setup file for the django_api_key app.
 
 In order to register your app at pypi.python.org, create an account at
 pypi.python.org and login, then register your new app like so:
@@ -21,7 +21,7 @@ If all looks good, you can make your first release:
     python setup.py sdist upload
 
 For new releases, you need to bump the version number in
-drf_api_key/__init__.py and re-run the above command.
+django_api_key/__init__.py and re-run the above command.
 
 For more information on creating source distributions, see
 http://docs.python.org/2/distutils/sourcedist.html
@@ -29,7 +29,7 @@ http://docs.python.org/2/distutils/sourcedist.html
 """
 import os
 
-import drf_api_key as app
+import django_api_key as app
 from setuptools import find_packages, setup
 
 dev_requires = [
@@ -47,16 +47,16 @@ def read(fname):
 
 
 setup(
-    name="drf-api-key",
+    name="django-api-key",
     version=app.__version__,
     description=read('DESCRIPTION'),
     long_description=read('README.rst'),
     license='The MIT License',
     platforms=['OS Independent'],
-    keywords='django, drf, django-rest-framework, api, api-key',
+    keywords='django, django, django-rest-framework, api, api-key',
     author='Dryice Liu',
     author_email='dryiceliu@gmail.com',
-    url="https://github.com/dryice/drf-api-key",
+    url="https://github.com/dryice/django-api-key",
     packages=find_packages(),
     include_package_data=True,
     install_requires=install_requires,

@@ -12,9 +12,9 @@ from fabric.colors import green, red
 if __name__ == '__main__':
     local('flake8 --ignore=E126 --ignore=W391 --statistics'
           ' --exclude=submodules,migrations,build,.tox .')
-    local('coverage run --source="drf_api_key" manage.py test -v 2'
+    local('coverage run --source="django_api_key" manage.py test -v 2'
           ' --traceback --failfast'
-          ' --settings=drf_api_key.tests.settings'
+          ' --settings=django_api_key.tests.settings'
           ' --pattern="*_tests.py"')
     local('coverage html -d coverage --omit="*__init__*,*/settings/*,'
           '*/migrations/*,*/tests/*,*admin*"')
