@@ -1,7 +1,7 @@
 """Admin classes for the django_api_key app."""
 from django.contrib import admin
 
-from django_api_key.models import APIKey, KeyGroup
+from django_api_key.models import APIKey, KeyGroup, IPAccess
 
 
 @admin.register(KeyGroup)
@@ -14,3 +14,10 @@ class KeyGroupAdmin(admin.ModelAdmin):
 class APIKeyAdmin(admin.ModelAdmin):
     list_display = ['name', 'key', 'path_re', 'group', 'created', 'updated']
     search_fields = ['name', 'group__name']
+
+
+@admin.register(IPAccess)
+class IPAccessAdmin(admin.ModelAdmin):
+    list_display = ['name', 'ip', 'path_re', 'group', 'created', 'updated']
+    search_fields = ['name', 'group__name']
+    
