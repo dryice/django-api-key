@@ -1,10 +1,11 @@
-from django.core.exceptions import PermissionDenied
-from ipware import get_client_ip
+from django.core.exceptions import PermissionDenied, ValidationError
+from django.utils.deprecation import MiddlewareMixin
 
 from django_api_key.models import APIKey, IPAccess
+from ipware import get_client_ip
 
 
-class APIKeyMiddleware(object):
+class APIKeyMiddleware(MiddlewareMixin):
     def process_request(self, request):
         api_key = request.META.get('HTTP_API_KEY', '')
 
@@ -20,7 +21,7 @@ class APIKeyMiddleware(object):
 
         try:
             api_key_object = APIKey.objects.get(key=api_key)
-        except APIKey.DoesNotExist:
+        except (APIKey.DoesNotExist, ValidationError):
             raise PermissionDenied('API key missing or invalid.')
 
         if not api_key_object.is_valid(request.path):
