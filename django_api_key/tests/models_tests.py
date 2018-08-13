@@ -4,7 +4,6 @@ from django.test import Client, TestCase
 from django_api_key.models import APIKey, IPAccess
 
 
-
 class APIKeyModelTests(TestCase):
     def test_no_key_no_access(self):
         c = Client()
@@ -38,6 +37,13 @@ class APIKeyModelTests(TestCase):
 
         response = c.get('/admin/', follow=True, REMOTE_ADDR="1.2.3.4")
         self.assertEqual(response.status_code, 200)
+
+    def test_no_key_non_whitelisted_ip_can_not_access(self):
+        IPAccess.objects.create(name="test", path_re="/admin.*", ip="1.2.3.4")
+        c = Client()
+
+        response = c.get('/admin/', follow=True, REMOTE_ADDR="2.3.4.5")
+        self.assertEqual(response.status_code, 403)
 
     def test_non_routable_ip_can_not_access(self):
         IPAccess.objects.create(name="test", path_re="/admin.*", ip="127.0.0.1")
