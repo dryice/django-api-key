@@ -18,6 +18,20 @@ class APIKeyModelTests(TestCase):
         response = c.get('/admin/', follow=True, HTTP_API_KEY=me.key)
         self.assertEqual(response.status_code, 200)
 
+    def test_incorrect_key_can_not_access(self):
+        APIKey.objects.create(name="test", path_re="/admin.*")
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_API_KEY="random_key")
+        self.assertEqual(response.status_code, 403)
+
+    def test_incorrect_path_can_not_access(self):
+        me = APIKey.objects.create(name="test", path_re="/admin111.*")
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_API_KEY=me.key)
+        self.assertEqual(response.status_code, 403)
+
     def test_no_key_whitelisted_ip_can_access(self):
         self.skipTest("waiting for new release with https://github.com/un33k/django-ipware/pull/42")
         IPAccess.objects.create(name="test", path_re="/admin.*", ip="127.0.0.1")
