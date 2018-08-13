@@ -7,7 +7,7 @@ include tox.ini
 include runtests.py
 include requirements.txt
 include test_requirements.txt
-graft drf_api_key
+graft django_api_key
 global-exclude *.orig *.pyc *.log *.swp local_settings.py
-prune drf_api_key/tests/coverage
-prune drf_api_key/.ropeproject
+prune django_api_key/tests/coverage
+prune django_api_key/.ropeproject

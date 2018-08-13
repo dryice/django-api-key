@@ -1,5 +1,5 @@
-=== 0.0.X (onggoing, to be released as 0.1) ===
-- Initial commit
+=== 0.0.1 (onggoing, to be released as 0.1) ===
+- first release
 
 
 # Suggested file syntax:

@@ -18,8 +18,6 @@ To get the latest commit from GitHub
 
     pip install -e git+git://github.com/dryice/django-api-key.git#egg=django_api_key
 
-TODO: Describe further installation steps (edit / remove the examples below):
-
 Add ``django_api_key`` to your ``INSTALLED_APPS``
 
 .. code-block:: python
@@ -29,33 +27,31 @@ Add ``django_api_key`` to your ``INSTALLED_APPS``
         'django_api_key',
     )
 
-Add the ``django_api_key`` URLs to your ``urls.py``
-
-.. code-block:: python
-
-    urlpatterns = [
-        url(r'^api_key/', include('django_api_key.urls')),
-    ]
-
-Before your tags/filters are available in your templates, load them by using
-
-.. code-block:: html
-
-	{% load django_api_key_tags %}
-
-
-Don't forget to migrate your database
+Migrate your database
 
 .. code-block:: bash
 
     ./manage.py migrate django_api_key
 
 
+Add your IP to white list: visit /admin/django_api_key/ipaccess/ and add your IP in with empty path_re
+
+
+
+Add the ``django_api_key`` URLs to your ``MIDDLEWARE``
+
+.. code-block:: python
+
+    MIDDLEWARE = [
+        ...,
+        'django_api_key.middleware.APIKeyMiddleware',
+    ]
+
+
 Usage
 -----
 
-TODO: Describe usage or point to docs. Also describe available settings and
-templatetags.
+TODO: 
 
 
 Contribute
@@ -67,7 +63,7 @@ If you want to contribute to this project, please perform the following steps
 
     # Fork this repository
     # Clone your fork
-    mkvirtualenv -p python2.7 django-api-key
+    mkvirtualenv -p python3.7 django-api-key
     make develop
 
     git co -b feature_branch master
@@ -77,5 +73,5 @@ If you want to contribute to this project, please perform the following steps
     # Send us a pull request for your feature branch
 
 In order to run the tests, simply execute ``tox``. This will install two new
-environments (for Django 1.8 and Django 1.9) and run the tests against both
+environments (for Django 2.0 and Django 2.1) and run the tests against both
 environments.
