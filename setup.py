@@ -2,11 +2,6 @@
 """
 Python setup file for the django_api_key app.
 
-In order to register your app at pypi.python.org, create an account at
-pypi.python.org and login, then register your new app like so:
-
-    python setup.py register
-
 If your name is still free, you can now make your first release but first you
 should check if you are uploading the correct files:
 
