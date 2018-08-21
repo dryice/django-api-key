@@ -1,3 +1,9 @@
+=== (onggoing) ===
+
+=== 0.1.0 ===
+- also get api_key from HTTP AUTHENTICATION header
+- allow ignore URLs for api_key check, default is /admin and /docs
+
 === 0.0.1 (onggoing, to be released as 0.1) ===
 - first release
 
