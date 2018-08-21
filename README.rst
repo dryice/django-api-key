@@ -43,6 +43,11 @@ Add the ``django_api_key`` URLs to your ``MIDDLEWARE``
         'django_api_key.middleware.APIKeyMiddleware',
     ]
 
+(Optional) adjust the URLs that you don't want api_key check. Default is:
+
+.. code-block:: python
+
+    IGNORE_API_KEY_CHECK_FOR = ["/admin/.*", "/docs/.*"]
 
 Visit /admin/django_api_key/ipaccess/ and add rules accordingly
 
