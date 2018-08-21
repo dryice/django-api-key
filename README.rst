@@ -34,10 +34,6 @@ Migrate your database
     ./manage.py migrate django_api_key
 
 
-Add your IP to white list: visit /admin/django_api_key/ipaccess/ and add your IP in with empty path_re
-
-
-
 Add the ``django_api_key`` URLs to your ``MIDDLEWARE``
 
 .. code-block:: python
@@ -46,6 +42,10 @@ Add the ``django_api_key`` URLs to your ``MIDDLEWARE``
         ...,
         'django_api_key.middleware.APIKeyMiddleware',
     ]
+
+
+Visit /admin/django_api_key/ipaccess/ and add rules accordingly
+
 
 
 Usage
