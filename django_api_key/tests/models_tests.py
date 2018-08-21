@@ -45,13 +45,6 @@ class APIKeyModelTests(TestCase):
         response = c.get('/admin/', follow=True, REMOTE_ADDR="2.3.4.5")
         self.assertEqual(response.status_code, 403)
 
-    def test_non_routable_ip_can_not_access(self):
-        IPAccess.objects.create(name="test", path_re="/admin.*", ip="127.0.0.1")
-        c = Client()
-
-        response = c.get('/admin/', follow=True)
-        self.assertEqual(response.status_code, 403)
-
     def test_empty_path_re_use_group_one(self):
         group = KeyGroup.objects.create(name="test_group", path_re="/admin.*")
         me = APIKey.objects.create(name="test_key", path_re="", group=group)
