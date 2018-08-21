@@ -88,3 +88,8 @@ class APIKeyModelTests(TestCase):
 
         response = c.get('/test/', follow=True, HTTP_AUTHORIZATION="abc")
         self.assertEqual(response.status_code, 403)
+
+    def test_no_can_can_access_ignored_path(self):
+        c = Client()
+        response = c.get('/admin/', follow=True)
+        self.assertEqual(response.status_code, 200)

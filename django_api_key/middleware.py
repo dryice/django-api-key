@@ -1,3 +1,6 @@
+import re
+
+from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.utils.deprecation import MiddlewareMixin
 
@@ -5,9 +8,20 @@ from django_api_key.models import APIKey, IPAccess
 from ipware import get_client_ip
 from ipware.defaults import IPWARE_PRIVATE_IP_PREFIX
 
+IGNORE_API_KEY_CHECK_FOR = getattr(
+    settings,
+    "IGNORE_API_KEY_CHECK_FOR",
+    ["/admin/.*", "/docs/.*"])
+
+IGNORE_API_KEY_CHECK_FOR = [re.compile(x) for x in IGNORE_API_KEY_CHECK_FOR]
+
 
 class APIKeyMiddleware(MiddlewareMixin):
     def process_request(self, request):
+        for i in IGNORE_API_KEY_CHECK_FOR:
+            if i.search(request.path):
+                return
+
         api_key = request.META.get('HTTP_API_KEY', '')
         if not api_key:
             auth_header = request.META.get('HTTP_AUTHORIZATION', '')
