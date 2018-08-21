@@ -68,3 +68,23 @@ class APIKeyModelTests(TestCase):
         response = c.get('/admin/', follow=True, HTTP_API_KEY=me.key)
         self.assertEqual(response.status_code, 403)
         print("{} overrides {} correctly".format(me, group))
+
+    def test_key_in_authorization_header_can_access(self):
+        me = APIKey.objects.create(name="test", path_re="/admin.*")
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_AUTHORIZATION="api_key {}".format(me.key))
+        self.assertEqual(response.status_code, 200)
+
+    def test_incorrect_key_in_authorization_header_can_not_access(self):
+        me = APIKey.objects.create(name="test", path_re="/admin.*")
+
+        c = Client()
+        response = c.get('/admin/', follow=True, HTTP_AUTHORIZATION="def {}".format(me.key))
+        self.assertEqual(response.status_code, 403)
+
+        response = c.get('/admin/', follow=True, HTTP_AUTHORIZATION="{}".format(me.key))
+        self.assertEqual(response.status_code, 403)
+
+        response = c.get('/admin/', follow=True, HTTP_AUTHORIZATION="abc")
+        self.assertEqual(response.status_code, 403)

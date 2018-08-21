@@ -9,6 +9,14 @@ from ipware.defaults import IPWARE_PRIVATE_IP_PREFIX
 class APIKeyMiddleware(MiddlewareMixin):
     def process_request(self, request):
         api_key = request.META.get('HTTP_API_KEY', '')
+        if not api_key:
+            auth_header = request.META.get('HTTP_AUTHORIZATION', '')
+            try:
+                key, value = auth_header.split()
+                if key.lower() == "api_key":
+                    api_key = value
+            except ValueError:
+                pass
 
         client_ip, is_routable = get_client_ip(request)
         if client_ip and not client_ip.startswith(IPWARE_PRIVATE_IP_PREFIX):
